@@ -3,4 +3,6 @@ project(calculator C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(calculator main.c)
+include_directories(inc)
+
+add_executable(calculator src/main.c)
