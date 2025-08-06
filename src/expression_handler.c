@@ -1,5 +1,6 @@
 #include "expression_handler.h"
-enum ExpressionValidatorOutput validateExpression(char* expr){
+#include "expression_parser.c"
+ExpressionValidatorOutput validateExpression(char* expr){
     if (expr == NULL || *expr == '\0') return ERR_EMPTY_EXPRESSION;
 
     if(*expr == 'e'){
@@ -31,6 +32,20 @@ enum ExpressionValidatorOutput validateExpression(char* expr){
         else {
             return ERR_INVALID_CHAR;
         }
+
+        if (c == '/') {
+
+            int j = i + 1;
+            while (expr[j] == ' ') j++;
+
+            if (expr[j] == '0') {
+                // Check if it's actually a zero
+                if (expr[j + 1] == '\0' || expr[j + 1] == ')' || expr[j + 1] == ' ' || expr[j + 1] == '+' ||
+                    expr[j + 1] == '-' || expr[j + 1] == '*' || expr[j + 1] == '/' ) {
+                    return ERR_DIVISION_BY_ZERO;
+                }
+            }
+        }
     }
 
     if (paren_balance != 0)
@@ -42,7 +57,9 @@ enum ExpressionValidatorOutput validateExpression(char* expr){
 
 double solveExpression(char* command){
     if(validateExpression(command) != VALID_EXPRESSION){
-        return 0;
+        printf("Error: Invalid expression\n");
+        exit(EXIT_FAILURE);
     }
-    return 1; // TODO: implement solving
+    expr_ptr = command;
+    return parse_expression();
 }

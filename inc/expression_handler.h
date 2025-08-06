@@ -2,7 +2,8 @@
 #define EXPRESSION_HANDLER_H
 #include <stdio.h>
 #include <ctype.h>
-enum ExpressionValidatorOutput{
+
+typedef enum {
     VALID_EXPRESSION,
     EXIT_CODE,
     ERR_DIVISION_BY_ZERO,
@@ -11,7 +12,7 @@ enum ExpressionValidatorOutput{
     ERR_EMPTY_EXPRESSION,
     ERR_UNKNOWN
 
-};
-enum ExpressionValidatorOutput validateExpression(char* command);
+} ExpressionValidatorOutput;
+ExpressionValidatorOutput validateExpression(char* command);
 double solveExpression(char* command);
 #endif
