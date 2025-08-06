@@ -10,7 +10,7 @@ int main() {
         printf("Write your expression (e.g. '24+656=')\n");
         printf("To exit the program write 'e' or 'exit' (case insensitive)\n");
         scanf("%s", command);
-        enum ExpressionValidatorOutput output = validateExpression(command);
+        ExpressionValidatorOutput output = validateExpression(command);
         switch(output){
             case EXIT_CODE:
                 running = false;
